@@ -1,5 +1,6 @@
 package com.example.pagedlist
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import io.reactivex.Completable
@@ -24,6 +25,7 @@ class NewsDataSource(private val networkService: NetworkService,
             networkService.getNews(1, params.requestedLoadSize)
                 .subscribe(
                     { response ->
+                        Log.d("LOADINIT",response.toString())
                         updateState(State.DONE)
                         callback.onResult(response.news,
                             null,
@@ -44,6 +46,7 @@ class NewsDataSource(private val networkService: NetworkService,
             networkService.getNews(params.key, params.requestedLoadSize)
                 .subscribe(
                     { response ->
+                        Log.d("LOADAFTER",response.toString())
                         updateState(State.DONE)
                         callback.onResult(response.news,
                             params.key + 1
